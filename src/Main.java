@@ -36,7 +36,7 @@ public class Main {
         int danhoGolpe1 = 10;
         int defensa1 = 5;
         String golpeEspecial = "Impactrueno";
-        int danhoEspecial = 40;
+        int danhoEspecial = 50;
         int mpGolpeEspecial = 15;
         //Iniciamos el segundo pokemon, Charmander
         String nombre2 = "Charmander";
@@ -50,27 +50,43 @@ public class Main {
 
         //Combate
         int i = 1;
+        int ronda = 1;
         while(!finCombate){
-            System.out.println("Ronda: "+ i);
             System.out.println("Tu Pokemon:");
             System.out.println("Vida: "+vida1);
             System.out.println("Mp: " + mp1);
             System.out.println("Pokemon enemigo:");
             System.out.println("Vida: "+vida2);
-            //Combate sección jugador
-            System.out.println("Combate, escribe el número para ejecutar la acción");
-            System.out.println("0: Atacar");
-            playerChoice = depurarInput(userInput, 0,0);
-            if (playerChoice == 0 && !finCombate){
-               vida2 = vida2 - danhoEspecial + defensa2;
-               System.out.println(nombre1 + " le hace "+ (danhoEspecial-defensa2) + " daños a " + nombre2);
-               finCombate = vidasCombate(vida1,vida2, nombre1, nombre2);
+            System.out.println("RONDA: "+ ronda);
+            if (ronda%2 == 0){
+                i = 2;
+                System.out.println("Empieza la máquina");
+            }else if (ronda%2 ==1){
+                i = 1;
+                System.out.println("Empiezas tú");
             }
-            //Combate sección máquina
-            if (!finCombate){
-                vida1 = vida1 - danhoFisico + defensa1;
-                System.out.println(nombre2 + " le hace " + (danhoFisico - defensa1) + " daños a "+ nombre1);
-                finCombate = vidasCombate(vida1,vida2, nombre1, nombre2);
+            ronda++;
+            for(int i1=0; i1<2; i1++){
+                if(i%2 == 1){
+                    //Combate sección jugador
+                    System.out.println("Combate, escribe el número para ejecutar la acción");
+                    System.out.println("0: Atacar");
+                    playerChoice = depurarInput(userInput, 0,0);
+                    if (playerChoice == 0 && !finCombate){
+                        vida2 = vida2 - danhoEspecial + defensa2;
+                        System.out.println(nombre1 + " le hace "+ (danhoEspecial-defensa2) + " daños a " + nombre2);
+                        finCombate = vidasCombate(vida1,vida2, nombre1, nombre2);
+                    }
+                }
+                if (i%2 ==0){
+                    //Combate sección máquina
+                    if (!finCombate){
+                        vida1 = vida1 - danhoFisico + defensa1;
+                        System.out.println(nombre2 + " le hace " + (danhoFisico - defensa1) + " daños a "+ nombre1);
+                        finCombate = vidasCombate(vida1,vida2, nombre1, nombre2);
+                    }
+                }
+                i++;
             }
         }
     }
