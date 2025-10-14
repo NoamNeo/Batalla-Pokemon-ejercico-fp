@@ -54,6 +54,8 @@ public class Main {
         pikachu.danhoAtk2 = 50;
         pikachu.mpAtk2 = 15;
         pikachu.golpeCrit = 20;
+        pikachu.pkmAttacks[0]= pikachu.danhoAtk1;
+        pikachu.pkmAttacks[1]= pikachu.danhoAtk2;
         //Iniciamos el segundo pokemon, Charmander
         Pokemon charmander= new Pokemon();
         charmander.nombre = "Charmander";
@@ -65,6 +67,8 @@ public class Main {
         charmander.danhoAtk2 = 50;
         charmander.mpAtk2 = 15;
         charmander.golpeCrit = 20;
+        charmander.pkmAttacks[0] = charmander.danhoAtk1;
+        charmander.pkmAttacks[1] = charmander.danhoAtk2;
 
         //Combate
         int i = 1;

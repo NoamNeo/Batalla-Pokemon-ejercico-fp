@@ -7,7 +7,7 @@ public class Pokemon {
         if(crit){
             vidaEnemigo = vidaEnemigo - (pkmAttacks[pkmAttack]-defensaEnemigo)*1.5;
         }else {
-            vidaEnemigo = vidaEnemigo - pkmAttacks[pkmAttack]-defensaEnemigo;
+            vidaEnemigo = vidaEnemigo - pkmAttacks[pkmAttack]+defensaEnemigo;
         }
         return vidaEnemigo;
     }
