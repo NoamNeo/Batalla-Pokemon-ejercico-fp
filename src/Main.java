@@ -88,19 +88,19 @@ public class Main {
                 if(i%2 == 1){
                     //Combate sección jugador
                     System.out.println("Combate, escribe el número para ejecutar la acción");
-                    System.out.println("0: Atacar");
-                    playerChoice = depurarInput(userInput, 0,0);
-                    if(playerChoice == 0) {
+                    System.out.println("1: Atacar");
+                    playerChoice = depurarInput(userInput, 1,1);
+                    if(playerChoice == 1) {
                         critStrike = (int) probabilidad(pikachu.golpeCrit,1 );
                         if (!finCombate && critStrike == pikachu.golpeCrit) {
                             System.out.println(RED +"GOLPE CRÍTICO"+RESET);
-                            charmander.vida = charmander.vida - (pikachu.danhoAtk2 * 1.5) + charmander.defensaF;
+                            charmander.vida =pikachu.ataque(charmander.defensaF, charmander.vida,true, 1);
                             System.out.println(pikachu.nombre + " le hace " + (pikachu.danhoAtk2*1.5 - charmander.defensaF) + " daños a " + charmander.nombre);
                             finCombate = vidasCombate(pikachu.vida, charmander.vida, pikachu.nombre, charmander.nombre);
                         } else if (!finCombate && critStrike == 1) {
                             System.out.println("HA FALLADO");
                         } else if (!finCombate) {
-                            charmander.vida = charmander.vida - pikachu.danhoAtk2 + charmander.defensaF;
+                            charmander.vida = pikachu.ataque(charmander.defensaF, charmander.vida,false, 1);
                             System.out.println(pikachu.nombre + " le hace " + (pikachu.danhoAtk2 - charmander.defensaF) + " daños a " + charmander.nombre);
                             finCombate = vidasCombate(pikachu.vida, charmander.vida, pikachu.nombre, charmander.nombre);
                         }
@@ -111,13 +111,13 @@ public class Main {
                     critStrike = (int) probabilidad(charmander.golpeCrit, 1);
                     if (!finCombate && critStrike == charmander.golpeCrit){
                         System.out.println(RED +"CRÍTICO"+RESET);
-                        pikachu.vida = pikachu.vida - (charmander.danhoAtk2 * 1.5) + pikachu.defensaF;
+                        pikachu.vida = charmander.ataque(pikachu.defensaF,pikachu.vida,true,1);
                         System.out.println(charmander.nombre + " le hace " + (charmander.danhoAtk2*1.5 - pikachu.defensaF) + " daños a "+ pikachu.nombre);
                         finCombate = vidasCombate(pikachu.vida,charmander.vida, pikachu.nombre, charmander.nombre);
                     }else if(!finCombate && critStrike == 0){
                         System.out.println("El enemigo ha fallado");
                     }else if (!finCombate){
-                        pikachu.vida = pikachu.vida - charmander.danhoAtk2 + pikachu.defensaF;
+                        pikachu.vida = charmander.ataque(pikachu.defensaF,pikachu.vida,false,1);
                         System.out.println(charmander.nombre + " le hace " + (charmander.danhoAtk2 - pikachu.defensaF) + " daños a "+ pikachu.nombre);
                         finCombate = vidasCombate(pikachu.vida,charmander.vida, pikachu.nombre, charmander.nombre);
                     }
