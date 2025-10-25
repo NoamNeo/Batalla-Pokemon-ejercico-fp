@@ -130,6 +130,7 @@ public class Main {
                       ataque.nombre, 0);
                   finCombate = vidasCombate(pikachu.vida, charmander.vida, pikachu.nombre, charmander.nombre);
                 }
+                pikachu.mp = pikachu.mp - ataque.mp;
                 break;
               case 2:
                 imprimirEstado(pikachu.vida, charmander.vida, pikachu.mp);
