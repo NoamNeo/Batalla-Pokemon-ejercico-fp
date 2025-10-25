@@ -7,11 +7,20 @@ public class Pokemon {
   int golpeCrit;
   Map<String, Move> pkmMoves = new HashMap<>();
 
+  public void addMove(String key, String nombre, double danho, int mp) {
+    Move move = new Move(nombre, danho, mp);
+    pkmMoves.put(key, move);
+  }
+
+  public Move getMove(String key) {
+    return pkmMoves.get(key);
+  }
+
   public double ataque(double defensaEnemigo, double vidaEnemigo, boolean crit, double danho) {
     if (crit) {
       vidaEnemigo = vidaEnemigo - (danho - defensaEnemigo) * 1.5;
     } else {
-      vidaEnemigo = vidaEnemigo - danho + defensaEnemigo;
+      vidaEnemigo = vidaEnemigo - (danho - defensaEnemigo);
     }
     return vidaEnemigo;
   }

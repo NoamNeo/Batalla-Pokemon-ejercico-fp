@@ -114,19 +114,20 @@ public class Main {
             System.out.println();
             switch (playerChoice) {
               case 1:
+                Move ataque = pikachu.getMove("impactrueno");
                 critStrike = (int) probabilidad(pikachu.golpeCrit, 1);
                 if (critStrike == pikachu.golpeCrit) {
-                  charmander.vida = pikachu.ataque(charmander.defensaF, charmander.vida, true, 1);
-                  imprimirDanho(pikachu.pkmAttacks[playerChoice] * 1.5 - charmander.defensaF, pikachu.nombre,
+                  charmander.vida = pikachu.ataque(charmander.defensaF, charmander.vida, true, ataque.danho);
+                  imprimirDanho(ataque.danho * 1.5 - charmander.defensaF, pikachu.nombre,
                       charmander.nombre,
-                      pikachu.pkmAttackNames[playerChoice], 2);
+                      ataque.nombre, 2);
                   finCombate = vidasCombate(pikachu.vida, charmander.vida, pikachu.nombre, charmander.nombre);
                 } else if (critStrike == 1) {
-                  imprimirDanho(0, pikachu.nombre, charmander.nombre, pikachu.pkmAttackNames[playerChoice], 1);
+                  imprimirDanho(0, pikachu.nombre, charmander.nombre, ataque.nombre, 1);
                 } else {
-                  charmander.vida = pikachu.ataque(charmander.defensaF, charmander.vida, false, 1);
-                  imprimirDanho(pikachu.pkmAttacks[playerChoice], pikachu.nombre, charmander.nombre,
-                      pikachu.pkmAttackNames[playerChoice], 0);
+                  charmander.vida = pikachu.ataque(charmander.defensaF, charmander.vida, false, ataque.danho);
+                  imprimirDanho(ataque.danho, pikachu.nombre, charmander.nombre,
+                      ataque.nombre, 0);
                   finCombate = vidasCombate(pikachu.vida, charmander.vida, pikachu.nombre, charmander.nombre);
                 }
                 break;
@@ -140,18 +141,19 @@ public class Main {
         }
         if (i % 2 == 0) {
           // Combate sección máquina
+          Move ataque = charmander.getMove("mordisco");
           critStrike = (int) probabilidad(charmander.golpeCrit, 1);
           if (critStrike == charmander.golpeCrit) {
-            pikachu.vida = charmander.ataque(pikachu.defensaF, pikachu.vida, true, 1);
-            imprimirDanho(charmander.pkmAttacks[1] * 1.5 - pikachu.defensaF, charmander.nombre, pikachu.nombre,
-                charmander.pkmAttackNames[1], 2);
+            pikachu.vida = charmander.ataque(pikachu.defensaF, pikachu.vida, true, ataque.danho);
+            imprimirDanho(ataque.danho * 1.5 - pikachu.defensaF, charmander.nombre, pikachu.nombre,
+                ataque.nombre, 2);
             finCombate = vidasCombate(pikachu.vida, charmander.vida, pikachu.nombre, charmander.nombre);
           } else if (critStrike == 0) {
-            imprimirDanho(0, charmander.nombre, pikachu.nombre, charmander.pkmAttackNames[1], 1);
+            imprimirDanho(0, charmander.nombre, pikachu.nombre, ataque.nombre, 1);
           } else {
-            pikachu.vida = charmander.ataque(pikachu.defensaF, pikachu.vida, false, 1);
-            imprimirDanho(charmander.pkmAttacks[1] - pikachu.defensaF, charmander.nombre, pikachu.nombre,
-                charmander.pkmAttackNames[1], 0);
+            pikachu.vida = charmander.ataque(pikachu.defensaF, pikachu.vida, false, ataque.danho);
+            imprimirDanho(ataque.danho - pikachu.defensaF, charmander.nombre, pikachu.nombre,
+                ataque.nombre, 0);
             finCombate = vidasCombate(pikachu.vida, charmander.vida, pikachu.nombre, charmander.nombre);
           }
         }
