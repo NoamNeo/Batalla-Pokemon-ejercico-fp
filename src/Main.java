@@ -13,7 +13,8 @@ public class Main {
 
   public static void imprimirDanho(double danho, String nomAttacker, String nomDeffender, String nomAtk, int crit) {
     System.out.println(nomAttacker + " usó " + nomAtk);
-    if (crit == 2) {
+    if (crit == 20) { // hardcoded valor temporal porque por ahora no tengo una buena manera de
+                      // checkear si fue un crítico o no
       System.out.println("CRÍTICO");
       System.out.println(nomAttacker + " hizo " + danho + " puntos de daño a " + nomDeffender);
     } else if (crit == 1) {
@@ -68,6 +69,7 @@ public class Main {
     int playerChoice = 0;
     boolean finCombate = false;
     int critStrike = 0;
+    double tempLife = 0;
     // Iniciamos los movimientos que vamos a usar en este ejemplo simplificado
 
     // Iniciamos el primer pokemon, Pikachu
@@ -116,20 +118,9 @@ public class Main {
               case 1:
                 Move ataque = pikachu.getMove("impactrueno");
                 critStrike = (int) probabilidad(pikachu.golpeCrit, 1);
-                if (critStrike == pikachu.golpeCrit) {
-                  charmander.vida = pikachu.ataque(charmander.defensaF, charmander.vida, true, ataque.danho);
-                  imprimirDanho(ataque.danho * 1.5 - charmander.defensaF, pikachu.nombre,
-                      charmander.nombre,
-                      ataque.nombre, 2);
-                  finCombate = vidasCombate(pikachu.vida, charmander.vida, pikachu.nombre, charmander.nombre);
-                } else if (critStrike == 1) {
-                  imprimirDanho(0, pikachu.nombre, charmander.nombre, ataque.nombre, 1);
-                } else {
-                  charmander.vida = pikachu.ataque(charmander.defensaF, charmander.vida, false, ataque.danho);
-                  imprimirDanho(ataque.danho, pikachu.nombre, charmander.nombre,
-                      ataque.nombre, 0);
-                  finCombate = vidasCombate(pikachu.vida, charmander.vida, pikachu.nombre, charmander.nombre);
-                }
+                tempLife = charmander.vida;
+                charmander.vida = pikachu.ataque(charmander.defensaF, charmander.vida, critStrike, ataque.danho);
+                imprimirDanho(tempLife - charmander.vida, pikachu.nombre, charmander.nombre, ataque.nombre, critStrike);
                 pikachu.mp = pikachu.mp - ataque.mp;
                 break;
               case 2:
@@ -144,19 +135,9 @@ public class Main {
           // Combate sección máquina
           Move ataque = charmander.getMove("mordisco");
           critStrike = (int) probabilidad(charmander.golpeCrit, 1);
-          if (critStrike == charmander.golpeCrit) {
-            pikachu.vida = charmander.ataque(pikachu.defensaF, pikachu.vida, true, ataque.danho);
-            imprimirDanho(ataque.danho * 1.5 - pikachu.defensaF, charmander.nombre, pikachu.nombre,
-                ataque.nombre, 2);
-            finCombate = vidasCombate(pikachu.vida, charmander.vida, pikachu.nombre, charmander.nombre);
-          } else if (critStrike == 0) {
-            imprimirDanho(0, charmander.nombre, pikachu.nombre, ataque.nombre, 1);
-          } else {
-            pikachu.vida = charmander.ataque(pikachu.defensaF, pikachu.vida, false, ataque.danho);
-            imprimirDanho(ataque.danho - pikachu.defensaF, charmander.nombre, pikachu.nombre,
-                ataque.nombre, 0);
-            finCombate = vidasCombate(pikachu.vida, charmander.vida, pikachu.nombre, charmander.nombre);
-          }
+          tempLife = pikachu.vida;
+          pikachu.vida = charmander.ataque(pikachu.defensaF, pikachu.vida, critStrike, ataque.danho);
+          imprimirDanho(tempLife - pikachu.vida, charmander.nombre, pikachu.nombre, ataque.nombre, critStrike);
         }
         i++;
       }

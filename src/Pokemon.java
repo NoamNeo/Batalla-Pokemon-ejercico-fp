@@ -16,12 +16,15 @@ public class Pokemon {
     return pkmMoves.get(key);
   }
 
-  public double ataque(double defensaEnemigo, double vidaEnemigo, boolean crit, double danho) {
-    if (crit) {
-      vidaEnemigo = vidaEnemigo - (danho - defensaEnemigo) * 1.5;
-    } else {
-      vidaEnemigo = vidaEnemigo - (danho - defensaEnemigo);
+  public double ataque(double defensaEnemigo, double vidaEnemigo, int critP, double danho) {
+    int intFallo = 1;
+    double critDmg = 1;
+    if (critP == this.golpeCrit) {
+      critDmg = 1.5;
+    } else if (critP == 1) {
+      intFallo = 0;
     }
+    vidaEnemigo = vidaEnemigo - ((danho - defensaEnemigo) * intFallo) * critDmg;
     return vidaEnemigo;
   }
 }
