@@ -2,17 +2,17 @@ import java.util.Map;
 import java.util.HashMap;
 
 public class Pokemon {
-  String nombre, nmAtk1;
-  double vida, mp, danhoAtk1, defensaF, defensaS, mpAtk1;
+  String nombre;
+  double vida, mp, defensaF, defensaS;
   int golpeCrit;
-  Map<String, Move> pkmMoves = new HashMap<>();
+  Map<Integer, Move> pkmMoves = new HashMap<>();
 
-  public void addMove(String key, String nombre, double danho, int mp) {
+  public void addMove(int key, String nombre, double danho, int mp) {
     Move move = new Move(nombre, danho, mp);
     pkmMoves.put(key, move);
   }
 
-  public Move getMove(String key) {
+  public Move getMove(int key) {
     return pkmMoves.get(key);
   }
 
